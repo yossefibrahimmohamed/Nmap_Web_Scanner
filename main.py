@@ -5,18 +5,18 @@ import socket
 import tempfile
 import os
 
-app = Flask(__name__)
+main = Flask(__name__)
 
 def is_valid_target(target):
     ip_pattern = r'^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
     hostname_pattern = r'^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$'
     return bool(re.match(ip_pattern, target) or re.match(hostname_pattern, target))
 
-@app.route("/")
+@main.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/scan", methods=["POST"])
+@main.route("/scan", methods=["POST"])
 def scan():
     target = request.form.get("target")
     if not is_valid_target(target):
@@ -47,7 +47,7 @@ def scan():
         result = e.output.decode() if e.output else "Error running nmap."
 
     return render_template("result_real.html", target=target, ip_target=ip_target, result=result)
-@app.route('/download/<target>')
+@main.route('/download/<target>')
 
 def download_report(target):
     scan_file = os.path.join(tempfile.gettempdir(), f"scan_result_{target}.txt")
@@ -57,4 +57,4 @@ def download_report(target):
         return "Scan result file not found.", 404
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    main.run(debug=True)
