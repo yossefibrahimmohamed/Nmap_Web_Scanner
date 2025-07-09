@@ -1,0 +1,173 @@
+<!-- result_real.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Scan Results | Nmap Web Scanner</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
+</head>
+<body>
+  <!-- Fixed Background -->
+  <div class="fixed-bg"></div>
+
+  <!-- Frame Container -->
+  <div class="frame-container">
+    <!-- Content Board -->
+    <div class="content-board">
+      <div class="s131">
+
+        <div class="nmap-overlay animate__animated animate__fadeInDown">
+          <h1>Scan Results</h1>
+          <h2>{{ target }}</h2>
+          <h2 style="margin-top: 10px;" >IP: {{ ip_target }}</h2>
+          <p id="target-display" class="animate__animated animate__fadeIn"></p>
+        </div>
+
+        <div class="info-section animate__animated animate__fadeIn" id="scan-time-section">
+          <div class="section">
+            <h3>Scan Duration:</h3>
+            <div class="service-grid">
+              {% for line in result.splitlines() %}
+                {% if 'Nmap done:' in line %}
+                  {% set scan_time = line.split('scanned in')[-1].strip() %}
+                  <div class="service-card">Total Scan Time: {{ scan_time }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section animate__animated animate__fadeIn">
+            <div class="section">
+              <h3>Open Ports:</h3>
+              <div class="service-grid">
+                {% for line in result.splitlines() %}
+                  {% if 'open' in line and ('tcp' in line or 'udp' in line) %}
+                    {% set parts = line.split() %}
+                    {% if parts|length >= 3 %}
+                      {% set port_proto = parts[0] %}   {# e.g., 443/tcp #}
+                      {% set service = parts[2] %}      {# e.g., https #}
+                      {% set port = port_proto.split('/')[0] %}
+                      {% set protocol = port_proto.split('/')[1].upper() %}
+                      <div class="port-item">
+                        <div class="port-number">{{ service | upper }} {{ port }}/{{ protocol }}</div>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+        <div class="info-section animate__animated animate__fadeIn">
+            <div class="section">
+              <h3>Port Version:</h3>
+              <div class="service-grid">
+                {% for line in result.splitlines() %}
+                  {% if 'open' in line and ('tcp' in line or 'udp' in line) %}
+                    {% set parts = line.split() %}
+                    {% if parts|length >= 4 %}
+                      {% set port_proto = parts[0] %}       {# e.g., 443/tcp #}
+                      {% set service = parts[2] %}          {# e.g., https #}
+                      {% set version = parts[3:] | join(" ") %} {# rest is version #}
+                      {% set port = port_proto.split('/')[0] %}
+                      <div class="service-card">
+                        {{ port }} ({{ service | upper }}) - {{ version }}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+        <div class="info-section animate__animated animate__fadeIn" id="raw-os-section">
+            <div class="section">
+              <h3>Operating System Info:</h3>
+              <div class="service-grid">
+                {% for line in result.splitlines() %}
+                  {% if 'Aggressive OS guesses:' in line %}
+                    {% set guesses = line.replace('Aggressive OS guesses:', '').split(',') %}
+                    {% for guess in guesses %}
+                      {% set guess = guess.strip() %}
+                      {% if '(' in guess %}
+                        {% set os_name = guess.rsplit('(', 1)[0].strip() %}
+                        {% set confidence = guess.rsplit('(', 1)[1].replace(')', '').strip() %}
+                        <div class="service-card">
+                          {{ os_name }} (OS): {{ confidence }}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% elif line.startswith('Running:') %}
+                    <div class="service-card">
+                      {{ line.replace('Running:', '').strip() }} (OS)
+                    </div>
+                  {% elif line.startswith('OS details:') %}
+                    <div class="service-card">
+                      {{ line.replace('OS details:', '').strip() }} (OS)
+                    </div>
+                  {% elif line.startswith('Device type:') %}
+                    <div class="service-card">
+                      Device Type: {{ line.replace('Device type:', '').strip() }}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+        <div class="info-section animate__animated animate__fadeIn" id="http-status-section">
+          <div class="section">
+            <h3>Status & HTTP Response Codes:</h3>
+            <div class="service-grid">
+              {% for line in result.splitlines() %}
+                {% if line.startswith('|') and ('http-title' in line or 'http-headers' in line or 'Server:' in line or 'HTTP/' in line) %}
+                  <div class="service-card">{{ line.strip() }}</div>
+                {% elif '200 OK' in line or '403 Forbidden' in line or '404 Not Found' in line %}
+                  <div class="service-card">{{ line.strip() }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section animate__animated animate__fadeIn">
+          <div class="section">
+            <h3>Traceroute:</h3>
+            <div class="service-grid">
+              {% for line in result.splitlines() %}
+                {% if 'TRACEROUTE' in line or line.startswith('|_') or line.startswith(' ') %}
+                  <div class="service-card">{{ line }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section animate__animated animate__fadeIn">
+          <div class="section">
+            <h3>Host Information:</h3>
+            <div class="service-grid">
+              {% for line in result.splitlines() %}
+                {% if 'Nmap scan report for' in line or 'rDNS record for' in line or 'Host is up' in line %}
+                  <div class="service-card">{{ line }}</div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="input-field third-wrap">
+            <button class="btn-search" onclick="window.location.href='/'" >New Scan</button>
+            <button id="save-report" class="save-btn btn-search" >Save Report</button>
+         </div>
+
+        </div>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

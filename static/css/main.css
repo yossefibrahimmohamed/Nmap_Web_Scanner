@@ -1,0 +1,556 @@
+/* main.css */
+
+/* Reset وتنسيقات عامة للصفحة */
+html {
+  line-height: 1.15; /* ارتفاع السطر */
+  height: 100%; /* ارتفاع كامل للصفحة */
+}
+
+body {
+  margin: 0; /* إزالة الهوامش الافتراضية */
+  font-family: 'Poppins', sans-serif; /* خط الموقع */
+  color: #fff;
+  background-color: #121212;
+}
+
+/* تطبيق box-sizing على جميع العناصر */
+* {
+  box-sizing: border-box; /* حساب الحشو والحدود ضمن العرض */
+}
+
+/* تنسيقات النصوص والعناوين */
+h1, h2, h3 {
+  margin: 0; /* إزالة الهوامش */
+  font-weight: 700; /* سماكة الخط */
+}
+
+p {
+  line-height: 1.6; /* تباعد الأسطر */
+}
+
+/* تنسيقات حقول الإدخال والأزرار */
+input,
+button {
+  font-family: 'Poppins', sans-serif; /* تطبيق نفس الخط */
+  outline: none;
+
+}
+
+button {
+  cursor: pointer; /* تغيير شكل المؤشر عند التواجد فوق الزر */
+}
+
+/* خلفية الصفحة الثابتة */
+.fixed-bg {
+  position: fixed; /* ثابتة أثناء التمرير */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../images/Search_131.png") no-repeat center center;
+  background-size: cover; /* تغطية كاملة للمساحة */
+  z-index: -1; /* خلف كل العناصر */
+}
+
+/* الإطار الرئيسي للمحتوى */
+.frame-container {
+  position: relative;
+  min-height: 100vh; /* ارتفاع كامل للشاشة */
+  overflow: hidden;
+  padding: 40px; /* حشو داخلي */
+}
+
+/* لوحة المحتوى الشفافة */
+.content-board {
+  min-height: calc(70vh - 40px);
+  max-height: calc(100vh - 80px);
+  max-width: 1200px;
+  margin: 0 auto; /* توسيط أفقي */
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.2); /* خلفية شفافة */
+  backdrop-filter: blur(8px); /* تأثير ضبابي */
+  border-radius: 15px; /* زوايا مدورة */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* ظل */
+  position: relative;
+  overflow-y: auto; /* تمكين التمرير العمودي عند الحاجة */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* حد شفاف */
+}
+
+/* error message */
+
+
+/* قسم البحث الرئيسي */
+.s131 {
+  min-height: auto;
+  display: flex;
+  flex-direction: column; /* ترتيب العناصر عموديًا */
+  justify-content: center; /* توسيط عمودي */
+  align-items: center; /* توسيط أفقي */
+  background: transparent;
+  padding: 60px 30px;
+  position: relative;
+}
+
+.s131 form {
+  width: 100%;
+  max-width: 940px; /* أقصى عرض للنموذج */
+}
+
+/* تنسيق صف الإدخال والزر */
+.s131 .inner-form {
+  display: flex;
+  flex-direction: row; /* العناصر في صف واحد */
+  align-items: stretch; /* نفس الارتفاع للعناصر */
+  gap: 10px; /* مسافة بين العناصر */
+  width: 100%;
+}
+
+/* تنسيقات حقول الإدخال */
+.s131 .input-field {
+  height: 50px; /* ارتفاع ثابت */
+  display: flex;
+  align-items: center;
+}
+
+.s131 .input-field input {
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px; /* زوايا مدورة */
+  transition: all 0.3s ease;
+}
+
+.s131 .input-field input:focus {
+  border-color: #4272d7;
+  box-shadow: 0 0 0 2px rgba(66, 114, 215, 0.2);
+}
+
+.s131 .input-field.first-wrap {
+  flex: 1; /* يأخذ المساحة المتبقية */
+}
+
+.s131 .input-field.third-wrap {
+  flex: 0 0 auto; /* عرض حسب المحتوى */
+}
+
+/* تنسيقات زر Scan Now مع تأثير الظهور */
+.s131 .btn-search {
+  height: 100%; /* نفس ارتفاع حقل الإدخال */
+  min-width: 150px; /* عرض أدنى */
+  font-size: 18px;
+  color: #fff;
+  border: 0;
+  background: linear-gradient(135deg, #4272d7, #3a65c1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* تأثيرات التحويم */
+  padding: 0 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease-out both;
+  animation-delay: 0.4s;
+}
+
+.s131 .btn-search:hover {
+  background: linear-gradient(135deg, #2d62d3, #2654b8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.s131 .btn-search:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* تأثير التحويم الأملس للزر */
+
+/* incresing if error delete it */
+
+.s131 .btn-search:hover::after {
+  transform: translateX(100%);
+}
+
+/* save button */
+.save-btn{
+  background: #1abd25 !important;
+  margin-left:50px
+}
+
+/* قسم العناوين والنصوص */
+.nmap-overlay {
+  position: relative;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.nmap-overlay h1 {
+  font-size: 4rem;
+  margin-top: 0;
+  color: #fff;
+}
+
+.nmap-overlay p {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  color: #fff;
+}
+
+/* قسم المعلومات */
+.info-section {
+  position: relative;
+  overflow-y: auto;
+  max-width: 1200px;
+  width:800px;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.info-section h2 {
+  position: sticky;
+  top: 0;
+  color: #a8c6ff;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  z-index: 1;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.scrollable-content {
+  overflow-y: auto;
+  padding-right: 10px;
+  flex-grow: 1;
+  max-height: 200px; /* Adjust based on your needs */
+}
+
+.scrollable-content h3 {
+  color: #a8c6ff;
+  margin: 15px 0 10px;
+  font-size: 1.2rem;
+}
+
+
+.info-section ul {
+  padding-left: 20px;
+  list-style-type: none; /* إزالة النقاط الافتراضية */
+}
+
+.info-section li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+}
+
+/* النقاط المخصصة للقوائم */
+.info-section li:before {
+  content: "•";
+  color: #a8c6ff;
+  font-size: 1.5em;
+  position: absolute;
+  left: 0;
+  top: -3px;
+}
+
+.info-section strong {
+  color: #a8c6ff;
+}
+
+.emoji {
+  font-size: 1.2em;
+  margin-right: 5px;
+}
+
+/* تأثيرات الحركة */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px);}
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shake-animation {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  border: 2px solid red !important;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* Make sure to remove any conflicting animations */
+input:invalid {
+  animation: shake 2s forwards;
+  border-color: #ED2B2A;
+  color: #ED2B2A
+}
+
+/* تنسيقات للشاشات الصغيرة */
+@media screen and (max-width: 992px) {
+  .s131 .input-field {
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .s131 .inner-form {
+    flex-wrap: nowrap; /* منع الانتقال لسطر جديد */
+  }
+
+  .frame-container {
+    padding: 20px;
+  }
+
+  .content-board {
+    padding: 20px;
+  }
+
+  .s131 .btn-search {
+    font-size: 16px;
+    min-width: 120px;
+    padding: 0 15px;
+  }
+
+  .nmap-overlay h1 {
+    font-size: 3rem;
+  }
+
+  .info-section {
+    margin: 20px 15px;
+    padding: 15px;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* تنسيقات شريط التمرير */
+.info-section::-webkit-scrollbar,
+.content-board::-webkit-scrollbar {
+  width: 8px;
+}
+
+.info-section::-webkit-scrollbar-track,
+.content-board::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.info-section::-webkit-scrollbar-thumb,
+.content-board::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+
+
+
+/* Results Page Specific Styles */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.info-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-label {
+  font-weight: 600;
+  color: #a8c6ff;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  word-break: break-all;
+}
+
+.ports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.port-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #4272d7;
+}
+
+.port-number {
+  font-weight: bold;
+  color: #a8c6ff;
+}
+
+.port-service {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.port-version {
+  font-size: 0.8rem;
+  font-family: monospace;
+  color: #bbb;
+}
+
+#vulnerabilities-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#vulnerabilities-list li {
+  padding: 12px;
+  margin-bottom: 10px;
+  background: rgba(255, 107, 107, 0.2);
+  border-left: 4px solid #ff6b6b;
+  border-radius: 4px;
+}
+
+#loader {
+  display: none;
+  position: absolute;
+  top: 90%; /* push below the input/button container */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border: 6px solid #ccc;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 10;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* تعديلات العناوين الرئيسية */
+.info-section h2 {
+  color: #a8c6ff;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1.8rem;
+  position: sticky;
+  top: 0;
+  /* تم إزالة خاصية background */
+  padding: 10px;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .info-grid, .ports-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+    padding: 8px 0;
+  }
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.service-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 12px 16px;
+  border-left: 4px solid #00bcd4;
+  border-radius: 6px;
+  color: #e0f7fa;
+  font-family: monospace;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.service-card:hover {
+  background-color: rgba(0, 188, 212, 0.1);
+}
+.port-item:hover{
+background-color: rgba(0, 188, 212, 0.1);
+}
+.error {
+  border: 2px solid #ff4444 !important;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5) !important;
+}
