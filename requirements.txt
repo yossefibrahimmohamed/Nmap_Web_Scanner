@@ -1,5 +1,4 @@
 flask
-python-nmap==0.7.1
-gunicorn
+python-nmap
 subprocess
 
