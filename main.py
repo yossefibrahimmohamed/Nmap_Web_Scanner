@@ -23,11 +23,11 @@ def scan():
         return jsonify({"error": "Invalid target"}), 400
     try:
         ip_target = socket.gethostbyname(target)
-        result = subprocess.check_output(
-            ["nmap", "-sS", "-sV", "-O", "-A", target],
-            stderr=subprocess.STDOUT,
-            text=True
-        )
+            result = subprocess.check_output(
+                ["nmap", "-Pn", "-p", "1-1000", target],
+                stderr=subprocess.STDOUT,
+                text=True
+            )
         scan_file = os.path.join(tempfile.gettempdir(), f"scan_result_{target}.txt")
         with open(scan_file, "w", encoding="utf-8") as f:
             f.write(result)
