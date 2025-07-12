@@ -1,8 +1,4 @@
 Flask
 python-nmap
-re
-os
-tempfile
-socket
 subprocess
 
