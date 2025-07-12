@@ -23,11 +23,12 @@ def scan():
         return jsonify({"error": "Invalid target"}), 400
     try:
         ip_target = socket.gethostbyname(target)
-            result = subprocess.check_output(
-                ["nmap", "-Pn", "-p", "1-1000", target],
-                stderr=subprocess.STDOUT,
-                text=True
-            )
+        # الأمر المبسط ليشتغل بدون صلاحيات root
+        result = subprocess.check_output(
+            ["nmap", "-Pn", "-p", "1-1000", target],
+            stderr=subprocess.STDOUT,
+            text=True
+        )
         scan_file = os.path.join(tempfile.gettempdir(), f"scan_result_{target}.txt")
         with open(scan_file, "w", encoding="utf-8") as f:
             f.write(result)
@@ -44,7 +45,7 @@ def scan():
         result = e.output if e.output else "Error running nmap."
 
     return render_template("result_real.html", target=target, ip_target=ip_target, result=result)
-
+    
 @app.route('/download/<target>')
 def download_report(target):
     scan_file = os.path.join(tempfile.gettempdir(), f"scan_result_{target}.txt")
