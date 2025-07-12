@@ -21,7 +21,7 @@ A simple web application built with **Flask** that allows users to perform basic
 ![Screenshot 2025-07-12 060900](https://github.com/user-attachments/assets/c24a50c6-2fb5-466b-a7ae-057a5aad4dc5)
 
 
-Try live demo on [Link](https://743ce941-19e2-4894-a7a9-15157b2efe25-00-3f7776hl3qy9g.worf.replit.dev/)
+Try live demo on [Link](https://c01378ea-e2ef-49fc-a5ea-189adcdf11a0-00-21gdtq58c01lg.riker.replit.dev/)
 
 ---
 
