@@ -16,9 +16,12 @@ A simple web application built with **Flask** that allows users to perform basic
 
 ## Demo
 
-![Screenshot](link_to_screenshot.png)
+![Screenshot]![Screenshot 2025-07-12 060955](https://github.com/user-attachments/assets/6cfac141-5ded-45c9-888c-4b2166754b86)
+![Screenshot 2025-07-12 060930](https://github.com/user-attachments/assets/2d97de9e-7f56-4b2c-affb-508a7858ccc7)
+![Screenshot 2025-07-12 060900](https://github.com/user-attachments/assets/c24a50c6-2fb5-466b-a7ae-057a5aad4dc5)
 
-Try live demo on [Replit](https://replit.com/@yourusername/yourprojectname) (replace with your URL)
+
+Try live demo on [Link](https://743ce941-19e2-4894-a7a9-15157b2efe25-00-3f7776hl3qy9g.worf.replit.dev/)
 
 ---
 
