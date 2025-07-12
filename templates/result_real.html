@@ -66,20 +66,7 @@
             <div class="section">
               <h3>Port Version:</h3>
               <div class="service-grid">
-                {% for line in result.splitlines() %}
-                  {% if 'open' in line and ('tcp' in line or 'udp' in line) %}
-                    {% set parts = line.split() %}
-                    {% if parts|length >= 4 %}
-                      {% set port_proto = parts[0] %}       {# e.g., 443/tcp #}
-                      {% set service = parts[2] %}          {# e.g., https #}
-                      {% set version = parts[3:] | join(" ") %} {# rest is version #}
-                      {% set port = port_proto.split('/')[0] %}
-                      <div class="service-card">
-                        {{ port }} ({{ service | upper }}) - {{ version }}
-                      </div>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
+                need Privilege
               </div>
             </div>
           </div>
@@ -88,33 +75,7 @@
             <div class="section">
               <h3>Operating System Info:</h3>
               <div class="service-grid">
-                {% for line in result.splitlines() %}
-                  {% if 'Aggressive OS guesses:' in line %}
-                    {% set guesses = line.replace('Aggressive OS guesses:', '').split(',') %}
-                    {% for guess in guesses %}
-                      {% set guess = guess.strip() %}
-                      {% if '(' in guess %}
-                        {% set os_name = guess.rsplit('(', 1)[0].strip() %}
-                        {% set confidence = guess.rsplit('(', 1)[1].replace(')', '').strip() %}
-                        <div class="service-card">
-                          {{ os_name }} (OS): {{ confidence }}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
-                  {% elif line.startswith('Running:') %}
-                    <div class="service-card">
-                      {{ line.replace('Running:', '').strip() }} (OS)
-                    </div>
-                  {% elif line.startswith('OS details:') %}
-                    <div class="service-card">
-                      {{ line.replace('OS details:', '').strip() }} (OS)
-                    </div>
-                  {% elif line.startswith('Device type:') %}
-                    <div class="service-card">
-                      Device Type: {{ line.replace('Device type:', '').strip() }}
-                    </div>
-                  {% endif %}
-                {% endfor %}
+               need Privilege
               </div>
             </div>
           </div>
@@ -123,13 +84,7 @@
           <div class="section">
             <h3>Status & HTTP Response Codes:</h3>
             <div class="service-grid">
-              {% for line in result.splitlines() %}
-                {% if line.startswith('|') and ('http-title' in line or 'http-headers' in line or 'Server:' in line or 'HTTP/' in line) %}
-                  <div class="service-card">{{ line.strip() }}</div>
-                {% elif '200 OK' in line or '403 Forbidden' in line or '404 Not Found' in line %}
-                  <div class="service-card">{{ line.strip() }}</div>
-                {% endif %}
-              {% endfor %}
+            need Privilege
             </div>
           </div>
         </div>
