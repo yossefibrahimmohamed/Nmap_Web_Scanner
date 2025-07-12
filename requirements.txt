@@ -1,4 +1,5 @@
-Flask
-python-nmap
+Flask==2.3.3
+python-nmap==0.7.1
+gunicorn
 subprocess
 
