@@ -3,6 +3,8 @@ from flask import Flask, request, render_template, jsonify, send_file
 import subprocess
 import socket
 import tempfile
+import threading
+import time
 import os
 
 app = Flask(__name__)  # ← هنا التغيير
@@ -54,6 +56,21 @@ def download_report(target):
     else:
         return "Scan result file not found.", 404
 
+def keep_alive():
+    while True:
+        try:
+            # هنا تستدعي رابط السيرفر (localhost مع المنفذ الموجود)
+            port = int(os.environ.get("PORT", 5000))
+            url = f"http://localhost:{port}/"
+            requests.get(url)
+            print("Ping sent to self to keep alive.")
+        except Exception as e:
+            print(f"Error in keep_alive ping: {e}")
+        time.sleep(60)  # انتظر 4 دقائق قبل المرة القادمة
+
 if __name__ == "__main__":
+    t = threading.Thread(target=keep_alive)
+    t.daemon = True
+    t.start()
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
 
